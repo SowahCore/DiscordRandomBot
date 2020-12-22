@@ -23,10 +23,16 @@ function commandProcess(msg){
         case 'between':
             commandBetween(msg);
             break;
+        case 'entre':
+            commandBetween(msg);
+            break;
         case 'for':
             commandFor(msg);
             break;
         case 'headstails':
+            commandHeadsTails(msg);
+            break;
+        case 'pileface':
             commandHeadsTails(msg);
             break;
         default:
