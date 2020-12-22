@@ -20,6 +20,9 @@ function commandProcess(msg){
     let primaryCommand = splitCommand[0];
 
     switch (primaryCommand.toLowerCase()) {
+        case 'help':
+            commandHelp(msg);
+            break;
         case 'between':
             commandBetween(msg);
             break;
@@ -41,6 +44,7 @@ function commandProcess(msg){
 }
 
 function commandBetween(msg) {
+    let creator = msg.client.users.cache.get('270173272950308866');
 
     let rawCommand = msg.content;
     let fullCommand = rawCommand.substr(prefix.length);
@@ -55,10 +59,18 @@ function commandBetween(msg) {
     else if (number1 < number2) result = getRandomIntInclusive(number1, number2);
     else result = number1;
 
-    msg.channel.send("le resultat est : " + result).catch(console.error);
+    const print = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('For RandomBot')
+        .setDescription('Le résultat est : ' + result)
+        .setTimestamp()
+        .setFooter('Created by '+ creator.username +'#' + creator.discriminator, creator.displayAvatarURL());
+
+    msg.channel.send(print);
 }
 
 function commandFor(msg) {
+    let creator = msg.client.users.cache.get('270173272950308866');
 
     let rawCommand = msg.content;
     let fullCommand = rawCommand.substr(prefix.length);
@@ -67,7 +79,14 @@ function commandFor(msg) {
     let number = parseInt(splitCommand[1]);
 
     let result = Math.floor(Math.random() * Math.floor(number+1));
-    msg.channel.send("le resultat est : " + result).catch(console.error);
+    const print = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('For RandomBot')
+        .setDescription('Le résultat est : ' + result)
+        .setTimestamp()
+        .setFooter('Created by '+ creator.username +'#' + creator.discriminator, creator.displayAvatarURL());
+
+    msg.channel.send(print);
 }
 
 function commandHeadsTails(msg) {
@@ -77,6 +96,26 @@ function commandHeadsTails(msg) {
     if (result === 0) msg.channel.send(face).catch(console.error);
     else if (result === 1) msg.channel.send(pile).catch(console.error);
     else msg.reply("c'est buggé").catch(console.error);
+}
+
+function commandHelp(msg) {
+    let creator = msg.client.users.cache.get('270173272950308866');
+    const help = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('Help RandomBot')
+        .setDescription('Vive le pouvoir du pif')
+        .setThumbnail(bot.user.displayAvatarURL())
+        .addFields(
+            { name: 'Préfixe : `' + prefix + '`', value: '‎\n' },
+            { name: 'Commandes :', value: '‎\n' },
+            { name: '[`random between value1 value2`] or [`random entre value1 value2`] :', value: 'get a random number between value1 and value2' },
+            { name: '[`random for value`] :', value: 'get a random number between 0 and value'},
+            { name: '[`random headsTails`] or [`random pileFace`] :', value: 'give if is heads or tails'}
+        )
+        .setTimestamp()
+        .setFooter('Created by '+ creator.username +'#' + creator.discriminator, creator.displayAvatarURL());
+
+    msg.channel.send(help);
 }
 
 function getRandomIntInclusive(min, max) {
