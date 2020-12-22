@@ -19,6 +19,7 @@ function commandProcess(msg){
     splitCommand = splitCommand.filter(function(e){return e});
     let primaryCommand = splitCommand[0];
 
+    console.log(primaryCommand.toLowerCase());
     switch (primaryCommand.toLowerCase()) {
         case 'between':
             commandBetween(msg);
@@ -26,7 +27,7 @@ function commandProcess(msg){
         case 'for':
             commandFor(msg);
             break;
-        case 'headsTails':
+        case 'headstails':
             commandHeadsTails(msg);
             break;
         default:
@@ -35,18 +36,18 @@ function commandProcess(msg){
 }
 
 function commandBetween(msg) {
-    msg.reply("pas fait (Between)").catch(console.error);
+    msg.reply("commande non faite").catch(console.error);
 }
 
 function commandFor(msg) {
-    msg.reply("pas fait (For)").catch(console.error);
+    msg.reply("commande non faite").catch(console.error);
 }
 
 function commandHeadsTails(msg) {
     let result = Math.floor(Math.random() * Math.floor(2));
     if (result === 0) msg.reply("c'est face").catch(console.error);
     else if (result === 1) msg.reply("c'est pile").catch(console.error);
-    else msg.reply("c'est bugger").catch(console.error);
+    else msg.reply("c'est buggé").catch(console.error);
 }
 
 bot.login(token).catch(console.error);
