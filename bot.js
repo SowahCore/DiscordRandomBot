@@ -38,6 +38,9 @@ function commandProcess(msg){
         case 'pileface':
             commandHeadsTails(msg);
             break;
+        case 'list\n-':
+            commandList(msg);
+            break;
         default:
             msg.reply("fdp.");
     }
@@ -61,7 +64,7 @@ function commandBetween(msg) {
 
     const print = new Discord.MessageEmbed()
         .setColor('#0099ff')
-        .setTitle('For RandomBot')
+        .setTitle('Between RandomBot')
         .setDescription('Le résultat est : ' + result)
         .setTimestamp()
         .setFooter('Created by '+ creator.username +'#' + creator.discriminator, creator.displayAvatarURL());
@@ -116,6 +119,32 @@ function commandHelp(msg) {
         .setFooter('Created by '+ creator.username +'#' + creator.discriminator, creator.displayAvatarURL());
 
     msg.channel.send(help);
+}
+
+/*
+* random list
+* - ihE ZRGJN
+* - zrenfg zefn
+* */
+function commandList(msg) {
+    let creator = msg.client.users.cache.get('270173272950308866');
+
+    let rawCommand = msg.content;
+    let splitCommand = rawCommand.split('\n');
+    splitCommand.splice(0, 1);
+    let list = splitCommand.map(c=> c.slice(2)).filter(function(e){return e});
+
+    let index = getRandomIntInclusive(0, list.length-1);
+    let result = list[index];
+
+    const print = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('List RandomBot')
+        .setDescription('Le résultat est : **' + result + '**')
+        .setTimestamp()
+        .setFooter('Created by '+ creator.username +'#' + creator.discriminator, creator.displayAvatarURL());
+
+    msg.channel.send(print);
 }
 
 function getRandomIntInclusive(min, max) {
